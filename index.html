@@ -14,6 +14,7 @@
 
 .photo-stack{position:relative;min-height:510px;display:grid;place-items:center}.photo-stack .polaroid{position:absolute;width:min(360px,82vw)}.photo-stack .polaroid:first-child{transform:translate(-55px,-12px) rotate(-5deg);z-index:2}.photo-stack .polaroid-second{transform:translate(70px,55px) rotate(5deg);z-index:1}.photo-stack .polaroid:first-child:hover{transform:translate(-55px,-12px) rotate(-1deg) scale(1.03);z-index:4}.photo-stack .polaroid-second:hover{transform:translate(70px,55px) rotate(1deg) scale(1.03);z-index:4}@media(max-width:720px){.photo-stack{min-height:460px}.photo-stack .polaroid{width:min(260px,68vw)}.photo-stack .polaroid:first-child{transform:translate(-34px,-35px) rotate(-5deg)}.photo-stack .polaroid-second{transform:translate(38px,75px) rotate(5deg)}}
 
+/* V9: photo layout - keep images inside their own column so text is never covered */
 .photo-layout{grid-template-columns:minmax(0,1fr) minmax(320px,1.05fr);gap:42px;align-items:center}
 .photo-stack{position:relative;min-height:0;display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:center;width:100%;max-width:560px;margin:0 auto;padding:12px}
 .photo-stack .polaroid{position:relative!important;width:100%!important;max-width:270px;margin:0!important}
@@ -31,6 +32,7 @@
  .photo-stack .polaroid-second:hover{transform:translateY(18px) rotate(1deg) scale(1.02)!important}
 }
 
+/* V10 cinematic photo-story */
 .photo-scene{width:min(1180px,96vw);height:min(760px,90vh);position:relative;overflow:hidden;border-radius:36px;border:1px solid #ffffff1c;box-shadow:0 32px 110px #000a;background:#0c0810}
 .photo-scene .scene-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.04);animation:slowZoom 12s ease-in-out infinite alternate}
 @keyframes slowZoom{to{transform:scale(1.11)}}
@@ -44,6 +46,48 @@
 .scene-copy .btn{margin-top:20px}
 .scene-number{position:absolute;right:28px;bottom:24px;font-size:11px;letter-spacing:.25em;color:#ffffff80;z-index:3}.reverse .scene-number{right:auto;left:28px}
 @media(max-width:720px){.photo-scene{height:88vh;border-radius:26px}.photo-scene .scene-img{object-position:60% center}.photo-scene.reverse .scene-img{object-position:45% center}.photo-scene .scene-shade,.photo-scene.reverse .scene-shade{background:linear-gradient(0deg,rgba(10,7,14,.98) 0%,rgba(10,7,14,.86) 32%,rgba(10,7,14,.18) 68%,rgba(10,7,14,.06) 100%)}.scene-copy,.reverse .scene-copy{left:24px;right:24px;top:auto;bottom:35px;transform:none;width:auto;text-align:left}.scene-copy h2{font-size:43px;margin-bottom:12px}.scene-copy p{font-size:14px;line-height:1.65}.scene-copy .scene-em{font-size:27px}.scene-number{top:22px;right:22px;bottom:auto}.reverse .scene-number{left:auto;right:22px}}
+
+#choice{
+  position:relative;
+  display:block;
+  width:min(520px,100%);
+  height:190px;
+  margin:26px auto 0;
+}
+#choice .yes{
+  position:absolute;
+  left:50%; top:0;
+  transform:translateX(-50%);
+  z-index:72;
+  white-space:nowrap;
+}
+#choice .yes:hover{transform:translateX(-50%) translateY(-3px) scale(1.03)}
+#choice .no{
+  position:absolute;
+  left:50%; top:76px;
+  transform:translateX(-50%);
+  z-index:73;
+  white-space:nowrap;
+  max-width:calc(100% - 20px);
+}
+@media(max-width:720px){
+  .envelope-wrap{height:285px;transform:scale(.94)}
+  .envelope{width:min(340px,88vw);height:210px}
+  .letter{left:6%;right:6%;padding:14px 15px;height:180px;overflow:hidden}
+  .letter h3{font-size:27px;line-height:1.05;margin-bottom:6px}
+  .letter p{font-size:16px;line-height:1.28;letter-spacing:0}
+  .letter p span{font-size:13px!important;margin-top:6px!important}
+  .envelope.open .letter{transform:translateY(-112px);height:238px}
+  #choice{height:180px;width:min(430px,100%)}
+  #choice .no{top:72px;font-size:13px;padding:13px 18px}
+}
+@media(max-width:390px){
+  .letter{padding:12px 13px}
+  .letter h3{font-size:25px}
+  .letter p{font-size:15px;line-height:1.25}
+  .envelope.open .letter{height:232px;transform:translateY(-108px)}
+}
+
 </style>
 </head>
 <body>
@@ -52,6 +96,7 @@
 <audio id="audio" loop><source src="music.mp3" type="audio/mpeg"></audio>
 
 <section class="stage active" data-step="0"><div class="glass"><div class="center"><div class="eyebrow">A LITTLE SOMETHING FOR YOU</div><div class="script">Có một điều...</div><p class="lead">Tớ đã nghĩ khá lâu về cách nói điều này với <b>Huyền Diệuuu</b>.<br>Cuối cùng tớ quyết định làm hẳn một nơi nhỏ chỉ dành cho cậu. 💗</p><div class="actions"><button class="btn primary" onclick="go(1)">Mở món quà 💌</button></div><div class="hint">Nhớ xem đến cuối nhé ✨</div></div></div></section>
+
 <section class="stage" data-step="1"><div class="glass"><div class="center"><div class="eyebrow">A LETTER FOR YOU</div><h2 class="script" style="font-size:55px">Một lá thư nhỏ</h2><div class="envelope-wrap"><div class="envelope" id="env" onclick="openLetter()"><div class="letter"><h3>Gửi Huyền Diệuuu,</h3><p>Có những người bước vào cuộc sống rất nhẹ nhàng, nhưng lại khiến mình nhớ thật lâu. Chẳng biết từ lúc nào, mỗi lần thấy cậu, ngày hôm đó của tớ dường như vui hơn một chút...<br><span style="display:block;text-align:right;margin-top:10px;font-size:17px">— từ cậu bé tinh nghịch ♡</span></p></div><div class="seal">♥</div></div></div><div class="actions"><button id="letterNext" class="btn primary" style="opacity:0;pointer-events:none" onclick="go(2)">Tiếp tục nhé →</button></div></div></div></section>
 
 <section class="stage" data-step="2"><div class="photo-scene"><img class="scene-img" src="crush.jpg" alt="Huyền Diệuuu"><div class="scene-shade"></div><div class="scene-copy"><div class="eyebrow">A MOMENT I REMEMBER</div><h2>Có những người...</h2><p>Chẳng cần làm gì quá đặc biệt, vẫn khiến mình vô thức nhìn lâu hơn một chút.</p><div class="scene-em">Và có lẽ, với tớ, người đó là Huyền Diệuuu. ♡</div><button class="btn primary" onclick="go(3)">Còn một khoảnh khắc nữa →</button></div><div class="scene-number">01 / 02</div></div></section>
@@ -68,41 +113,55 @@
 <script>
 const stages=[...document.querySelectorAll('.stage')], progress=document.getElementById('progress');let current=0;
 stages.forEach((_,i)=>{let d=document.createElement('i');d.className='dot'+(i===0?' on':'');progress.appendChild(d)});
-function go(n){stages[current].classList.remove('active');current=n;setTimeout(()=>stages[current].classList.add('active'),180);[...progress.children].forEach((d,i)=>d.classList.toggle('on',i<=n));if(n===5)playCinema();if(n===6)typeLines();}
+function go(n){stages[current].classList.remove('active');current=n;setTimeout(()=>stages[current].classList.add('active'),180);[...progress.children].forEach((d,i)=>d.classList.toggle('on',i<=n));if(n===5)playCinema();if(n===6)typeLines();if(n===7)resetNoButton();}
 let cinemaPlayed=false;async function playCinema(){if(cinemaPlayed)return;cinemaPlayed=true;const el=document.getElementById('cinemaLine');const seq=['Tớ đã nghĩ rất lâu...','Không biết nói ra có làm mọi thứ thay đổi không.','Nhưng nếu hôm nay không nói...','Có lẽ tớ sẽ tiếc mất.'];for(const x of seq){el.style.opacity=0;await new Promise(r=>setTimeout(r,350));el.textContent=x;el.style.opacity=1;await new Promise(r=>setTimeout(r,1300))}}
 function openLetter(){let e=document.getElementById('env');if(e.classList.contains('open'))return;e.classList.add('open');setTimeout(()=>{let b=document.getElementById('letterNext');b.style.opacity=1;b.style.pointerEvents='auto'},900)}
-function restartStory(){stages[current].classList.remove('active');current=0;document.getElementById('env').classList.remove('open');let next=document.getElementById('letterNext');next.style.opacity=0;next.style.pointerEvents='none';cinemaPlayed=false;document.getElementById('cinemaLine').textContent='Tớ đã nghĩ rất lâu...';document.getElementById('cinemaLine').style.opacity=1;typing=false;document.getElementById('typed').textContent='';escapes=0;no.textContent=msgs[0];no.style.display='';no.style.position='relative';no.style.left='';no.style.top='';no.style.transform='';react.textContent='';[...progress.children].forEach((d,i)=>d.classList.toggle('on',i===0));setTimeout(()=>stages[0].classList.add('active'),180)}
+function restartStory(){stages[current].classList.remove('active');current=0;document.getElementById('env').classList.remove('open');let next=document.getElementById('letterNext');next.style.opacity=0;next.style.pointerEvents='none';cinemaPlayed=false;document.getElementById('cinemaLine').textContent='Tớ đã nghĩ rất lâu...';document.getElementById('cinemaLine').style.opacity=1;typing=false;document.getElementById('typed').textContent='';resetNoButton();[...progress.children].forEach((d,i)=>d.classList.toggle('on',i===0));setTimeout(()=>stages[0].classList.add('active'),180)}
 const lines=['Không phải kiểu thích nhất thời...','Mà là muốn được hiểu cậu nhiều hơn,','được quan tâm cậu nhiều hơn,','và ở cạnh cậu lâu hơn một chút.'];let typing=false;
 async function typeLines(){if(typing)return;typing=true;let el=document.getElementById('typed');for(const line of lines){el.textContent='';for(const c of line){el.textContent+=c;await new Promise(r=>setTimeout(r,35))}await new Promise(r=>setTimeout(r,650))}typing=false}
 function spawnHeart(){let h=document.createElement('span');h.className='heart';h.textContent=['♥','♡','💗','✦'][Math.floor(Math.random()*4)];h.style.left=Math.random()*100+'vw';h.style.fontSize=12+Math.random()*18+'px';h.style.setProperty('--dx',(Math.random()*120-60)+'px');h.style.animationDuration=5+Math.random()*5+'s';document.getElementById('hearts').appendChild(h);setTimeout(()=>h.remove(),10000)}setInterval(spawnHeart,520);
 const no=document.getElementById('no'), react=document.getElementById('reaction');let escapes=0;const msgs=['Không đồng ý 🙈','Ơ kìa 😭','Suy nghĩ lại đi mà 🥺','Nút này hơi nhát đó 🤭','Hình như cậu bấm nhầm rồi 😌','Chỉ còn một lựa chọn hợp lý thôi 💗','Thôi màaaa 😭💞'];
+function resetNoButton(){
+  escapes=0;
+  no.textContent=msgs[0];
+  no.style.display='';
+  no.style.position='absolute';
+  no.style.left='50%';
+  no.style.top='76px';
+  no.style.transform='translateX(-50%)';
+  react.textContent='';
+}
 function flee(){
+  // Lần đầu nhìn thấy luôn là "Không đồng ý"; chỉ đổi chữ sau khi người dùng chạm/rê vào.
   escapes++;
   react.textContent='';
   no.textContent=msgs[Math.min(escapes,msgs.length-1)];
-  no.style.position='fixed';
+  no.style.position='absolute';
 
-  // Chỉ cho nút chạy bên trong khung nội dung của màn câu hỏi.
-  const glass=no.closest('.glass');
-  const r=glass.getBoundingClientRect();
-  const pad=18;
-  const w=no.offsetWidth;
-  const h=no.offsetHeight;
+  // Nút chỉ được chạy trong #choice: đây là vùng riêng nằm dưới phần câu hỏi,
+  // nên tuyệt đối không thể đè lên tiêu đề, mô tả hay các đoạn chữ phía trên.
+  const zone=document.getElementById('choice');
+  const zr=zone.getBoundingClientRect();
+  const yesBtn=zone.querySelector('.yes');
+  const yr=yesBtn.getBoundingClientRect();
+  const pad=8;
+  const w=no.offsetWidth, h=no.offsetHeight;
+  const maxX=Math.max(pad, zone.clientWidth-w-pad);
+  const maxY=Math.max(82, zone.clientHeight-h-pad);
 
-  const minX=r.left+pad;
-  const maxX=Math.max(minX,r.right-w-pad);
-  const minY=r.top+pad;
-  const maxY=Math.max(minY,r.bottom-h-pad);
-
-  let x=minX+Math.random()*(maxX-minX);
-  let y=minY+Math.random()*(maxY-minY);
-
-  x=Math.max(8,Math.min(x,innerWidth-w-8));
-  y=Math.max(8,Math.min(y,innerHeight-h-8));
+  let x=pad, y=82;
+  let tries=0;
+  do{
+    x=pad+Math.random()*Math.max(0,maxX-pad);
+    y=82+Math.random()*Math.max(0,maxY-82);
+    const absLeft=zr.left+x, absTop=zr.top+y;
+    const overlapsYes=!(absLeft+w < yr.left-12 || absLeft > yr.right+12 || absTop+h < yr.top-12 || absTop > yr.bottom+12);
+    if(!overlapsYes) break;
+  }while(++tries<30);
 
   no.style.left=x+'px';
   no.style.top=y+'px';
-  no.style.transform=`rotate(${Math.random()*12-6}deg)`;
+  no.style.transform=`rotate(${Math.random()*8-4}deg)`;
 }
 no.addEventListener('mouseenter',flee);no.addEventListener('pointerdown',e=>{e.preventDefault();flee()});no.addEventListener('touchstart',e=>{e.preventDefault();flee()},{passive:false});
 function yes(){no.style.display='none';go(8);for(let i=0;i<90;i++)setTimeout(()=>{let b=document.createElement('span');b.className='burst';b.textContent=['💗','♥','✨','🌸'][Math.floor(Math.random()*4)];b.style.left='50vw';b.style.top='50vh';b.style.setProperty('--x',(Math.random()*900-450)+'px');b.style.setProperty('--y',(Math.random()*700-350)+'px');document.body.appendChild(b);setTimeout(()=>b.remove(),1700)},i*12)}
